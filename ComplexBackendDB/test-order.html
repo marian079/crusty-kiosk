@@ -1,0 +1,19 @@
+curl -X POST http://localhost:5000/api/orders \
+  -H "Content-Type: application/json" \
+  -d '{
+    "order": {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "orderNumber": 1001,
+      "paymentMethod": "card",
+      "total": "59.99",
+      "customerName": "Davidov"
+    },
+    "items": [
+      {
+        "productId": "prod-001",
+        "productName": "Pizza Margherita",
+        "productPrice": "29.99",
+        "quantity": 2
+      }
+    ]
+  }'
