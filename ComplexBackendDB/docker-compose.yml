@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # Serviciul pentru Baza de Date PostgreSQL
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: user_kiosk
+      POSTGRES_PASSWORD: password_kiosk
+      POSTGRES_DB: crusty_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  # Serviciul pentru Aplicația noastră
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_URL: postgresql://user_kiosk:password_kiosk@db:5432/crusty_db
+      NODE_ENV: production
+    depends_on:
+      - db
+
+volumes:
+  db_data:
