@@ -73,3 +73,39 @@ seed.ts - Script pentru popularea meniului cu produse.
 Dacă adăugați pachete noi, nu uitați să rulați npm install.
 
 Nu urcați fișierul .env pe GitHub! (Este deja inclus în .gitignore).
+
+
+
+ 🚀 Instrucțiuni de Pornire Proiect (Docker)
+Acest proiect este containerizat folosind Docker pentru a asigura rularea identică pe orice calculator, fără a fi nevoie de instalarea manuală a Node.js sau PostgreSQL.
+
+1. Pre-cerințe
+Să aveți Docker Desktop instalat și pornit. (Descarcă aici)
+
+2. Pornirea Aplicației
+Deschideți un terminal în folderul ComplexBackendDB și rulați:
+
+Bash
+
+docker-compose up --build
+Așteptați până când log-urile arată: serving on http://0.0.0.0:5000.
+
+3. Configurarea Bazei de Date (Doar la prima rulare)
+În timp ce Docker-ul rulează, deschideți un alt terminal în același folder și executați următoarele două comenzi pentru a crea tabelele și a adăuga produsele în meniu:
+
+Bash
+
+# A. Crearea structurii tabelelor
+docker exec -it complexbackenddb-app-1 npm run db:push
+
+# B. Popularea meniului cu produse (Seed)
+docker exec -it complexbackenddb-app-1 npx tsx server/seed.ts
+4. Accesare Proiect
+Aplicația poate fi accesată în browser la adresa: 👉 http://localhost:5000
+
+💡 Note utile pentru echipă:
+Închiderea proiectului: Apăsați Ctrl + C în terminalul unde rulează Docker sau folosiți butonul Stop din Docker Desktop.
+
+Modificări de cod: Dacă modificați fișierele de backend sau frontend, trebuie să rulați din nou docker-compose up --build pentru a vedea schimbările.
+
+Baza de date: Datele sunt salvate într-un volum Docker, deci vor rămâne acolo chiar dacă opriți containerele.
